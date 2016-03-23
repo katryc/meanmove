@@ -28,6 +28,13 @@ app.use('/greet', function(req, res, next) {
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/hello');
 mongoose.connection.once('open', function() {
+
+  //dependancy inject the model without it even worying about controllers without
+  //app.models
+
+  app.models = require('./models/index');
+
+  //add the listener 
   console.log('Listening on port 3000...');
   app.listen(3000);
 });
