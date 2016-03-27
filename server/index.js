@@ -34,6 +34,16 @@ mongoose.connection.once('open', function() {
 
   app.models = require('./models/index');
 
+  //Load routes
+
+  var routes = require('./routes');
+  //now iterate over all the created routes and find the controller that matches it
+  //using lodash var
+   _.each(routes.function(controller,route){
+     app.use(route, controller(app, routes));
+     //the controller calls for middleware
+   });
+
   //add the listener 
   console.log('Listening on port 3000...');
   app.listen(3000);
